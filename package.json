@@ -1,12 +1,14 @@
 {
-  "name": "copy-of-quiz-de-afinidad-política-chile-2025",
+  "name": "quiz-de-afinidad-politica",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "ng serve",
     "build": "ng build",
-    "preview": "ng serve --configuration=production"
+    "build:prod": "ng build --configuration=production",
+    "preview": "ng serve --configuration=production",
+    "deploy": "npm run build:prod && npx angular-cli-ghpages --dir=dist"
   },
   "dependencies": {
     "rxjs": "^7.8.2",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^22.14.0",
     "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+    "angular-cli-ghpages": "^1.7.0"
   }
 }
