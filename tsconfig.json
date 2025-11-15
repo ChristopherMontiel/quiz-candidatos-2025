@@ -18,6 +18,10 @@
     "moduleDetection": "force",
     "allowJs": true,
     "jsx": "react-jsx",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "paths": {
       "@/*": [
         "./*"
@@ -27,7 +31,11 @@
   "files": [
     "./index.tsx"
   ],
+  "include": [
+    "src/**/*"
+  ],
   "angularCompilerOptions": {
-    "disableTypeScriptVersionCheck": true
+    "disableTypeScriptVersionCheck": true,
+    "enableIvy": true
   }
 }
