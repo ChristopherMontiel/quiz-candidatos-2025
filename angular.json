@@ -13,11 +13,21 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": "dist",
-            "index": "index.html",
+            "index": {
+              "input": "index.html",
+              "output": "index.html"
+            },
             "browser": "index.tsx",
             "tsConfig": "tsconfig.json",
             "baseHref": "/quiz-candidatos-2025/",
-            "assets": [],
+            "assets": [
+              "favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "public",
+                "output": "/public"
+              }
+            ],
             "styles": [],
             "scripts": []
           },
