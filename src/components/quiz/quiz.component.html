@@ -1,0 +1,66 @@
+<div class="bg-white rounded-lg shadow-xl p-6 md:p-8 animate-fade-in w-full">
+  @if (currentTopic(); as topic) {
+    <!-- Progress Bar -->
+    <div class="mb-6">
+      <div class="flex justify-between items-center mb-2">
+        <h2 class="text-xl font-bold text-indigo-700">{{ topic.title }}</h2>
+        <span class="text-sm font-semibold text-gray-600">{{ answeredQuestionsCount() + 1 }} / {{ totalQuestions() }}</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2.5">
+        <div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500" [style.width.%]="progressPercentage()"></div>
+      </div>
+    </div>
+
+    @if (currentQuestion(); as question) {
+      <!-- Question -->
+      <div class="min-h-[120px] flex items-center justify-center">
+        <p class="text-center text-lg md:text-xl font-medium text-gray-800">{{ question.text }}</p>
+      </div>
+
+      <!-- Answer Scale -->
+      <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-3 md:gap-4">
+        <span class="text-gray-600 font-semibold hidden md:block">En Desacuerdo</span>
+        @for (score of [1, 2, 3, 4, 5]; track score) {
+          <button 
+            (click)="onAnswer(score)"
+            [disabled]="isAnswered()"
+            [class]="'scale-button w-12 h-12 md:w-14 md:h-14 rounded-full text-lg font-bold flex items-center justify-center border-2 transition-all ' + (userAnswers()[question.id] === score ? 'bg-indigo-600 text-white border-indigo-700 shadow-lg scale-110' : 'bg-white text-gray-700 border-gray-300 hover:bg-indigo-100 hover:border-indigo-400 disabled:opacity-50 disabled:cursor-not-allowed')">
+            {{ score }}
+          </button>
+        }
+        <span class="text-gray-600 font-semibold hidden md:block">De Acuerdo</span>
+      </div>
+       <div class="flex justify-between items-center text-gray-600 font-semibold mt-2 md:hidden">
+            <span>En Desacuerdo</span>
+            <span>De Acuerdo</span>
+        </div>
+
+      <!-- Hint -->
+      <div class="mt-6 min-h-[50px] flex items-center justify-center text-center">
+        @if (isAnswered() && associatedCandidate(); as candidate) {
+            <div class="p-3 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-md animate-fade-in">
+                <p><span class="font-bold">Dato:</span> Esta postura se asocia principalmente a <span class="font-bold">{{ candidate.name }}</span>.</p>
+            </div>
+        }
+      </div>
+    }
+
+    <!-- Navigation -->
+    <div class="mt-8 flex justify-between">
+      <button 
+        (click)="onPrevious()" 
+        [disabled]="isAnswered()"
+        class="bg-gray-200 text-gray-700 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+        Anterior
+      </button>
+      <button 
+        (click)="onNext()" 
+        [disabled]="!isAnswered()"
+        class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+        Siguiente
+      </button>
+    </div>
+  } @else {
+    <p class="text-center text-gray-600">Cargando quiz...</p>
+  }
+</div>

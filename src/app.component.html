@@ -1,0 +1,57 @@
+<div class="min-h-screen flex flex-col items-center justify-center p-4">
+  <header class="text-center mb-8">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Quiz de Afinidad Política</h1>
+    <p class="text-lg text-gray-600 mt-2">Chile 2025</p>
+  </header>
+
+  <main class="w-full max-w-4xl">
+    @switch (quizState()) {
+      @case ('start') {
+        <div class="bg-white rounded-lg shadow-xl p-8 text-center animate-fade-in">
+          <h2 class="text-2xl font-semibold text-gray-700 mb-4">Descubre tu afinidad con los candidatos</h2>
+          <p class="text-gray-600 mb-6">
+            Responde una serie de preguntas basadas en las posturas reales de los candidatos en temas clave para el futuro de Chile. Al final, te mostraremos con quién tienes más compatibilidad.
+          </p>
+          <button (click)="startQuiz()" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors duration-300 shadow-lg">
+            Comenzar el Quiz
+          </button>
+        </div>
+      }
+      @case ('quiz') {
+        <app-quiz 
+          [topics]="quizData()"
+          [currentTopicIndex]="currentTopicIndex()"
+          [currentQuestionIndex]="currentQuestionIndex()"
+          [userAnswers]="userAnswers()"
+          [candidates]="candidates()"
+          (answer)="handleAnswer($event)"
+          (previousQuestion)="goToPreviousQuestion()"
+          (nextQuestion)="goToNextQuestion()"
+          />
+      }
+      @case ('partial_results') {
+        <app-results
+          [results]="partialResults()"
+          [candidates]="candidates()"
+          [topicTitle]="currentTopic()?.title || ''"
+          [isFinal]="false"
+          (next)="continueToNextTopic()"
+          />
+      }
+      @case ('final_results') {
+        <app-results
+          [results]="finalResults()"
+          [candidates]="candidates()"
+          [topicTitle]="'Resultado Final'"
+          [isFinal]="true"
+          (next)="restartQuiz()"
+          />
+      }
+    }
+  </main>
+
+  <footer class="text-center mt-12 text-gray-500 text-sm">
+    <p>Este es un ejercicio de análisis político y no representa una afiliación con ningún candidato o partido.</p>
+    <p>Las posturas se basan en el análisis de propuestas públicas y declaraciones.</p>
+  </footer>
+</div>
