@@ -19,7 +19,7 @@
             },
             "browser": "index.tsx",
             "tsConfig": "tsconfig.json",
-            "baseHref": "/quiz-candidatos-2025/",
+            "baseHref": "/",
             "assets": [
               "favicon.ico",
               {
