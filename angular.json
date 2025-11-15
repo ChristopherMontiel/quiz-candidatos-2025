@@ -13,24 +13,21 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": "dist",
-            "index": {
-              "input": "index.html",
-              "output": "index.html"
-            },
+            "index": "index.html",
             "browser": "index.tsx",
             "tsConfig": "tsconfig.json",
             "baseHref": "/",
             "assets": [
-              "favicon.ico",
               {
                 "glob": "**/*",
-                "input": "public",
-                "output": "/public"
+                "input": ".",
+                "output": "/",
+                "ignore": ["*.ts", "*.tsx", "src/**", ".git/**", "node_modules/**", "dist/**", ".github/**"]
               }
             ],
             "styles": [],
             "scripts": []
-          },
+          },,
           "configurations": {
             "production": {
               "outputHashing": "all"
