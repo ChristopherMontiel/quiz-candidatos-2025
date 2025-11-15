@@ -16,21 +16,25 @@
             "index": "index.html",
             "browser": "index.tsx",
             "tsConfig": "tsconfig.json",
-            "baseHref": "/",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": ".",
-                "output": "/",
-                "ignore": ["*.ts", "*.tsx", "src/**", ".git/**", "node_modules/**", "dist/**", ".github/**"]
-              }
+              "404.html",
+              ".nojekyll"
             ],
             "styles": [],
             "scripts": []
-          },,
+          },
           "configurations": {
             "production": {
-              "outputHashing": "all"
+              "budgets": [
+                {
+                  "type": "bundle",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false
             },
             "development": {
               "optimization": false,
@@ -43,14 +47,15 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "port": 3000
+            "port": 3000,
+            "browserTarget": "app:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "app:build:production"
+              "browserTarget": "app:build:production"
             },
             "development": {
-              "buildTarget": "app:build:development"
+              "browserTarget": "app:build:development"
             }
           },
           "defaultConfiguration": "development"

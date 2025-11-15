@@ -22,17 +22,17 @@
       box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     }
   </style>
-  <script type="text/javascript">
-    // Handle hash-based routing from 404.html
-    (function() {
-      // If we have a redirect path in the hash, use it as the current location
-      if (window.location.hash.startsWith('#/')) {
-        // Keep the hash for Angular routing
-      }
-    })();
+  <script>
+    console.log('[DEBUG] index.html loaded');
+    console.log('[DEBUG] Current URL:', window.location.href);
+    console.log('[DEBUG] Pathname:', window.location.pathname);
   </script>
 </head>
 <body class="bg-gray-100 antialiased">
   <app-root></app-root>
+  <script>
+    console.log('[DEBUG] About to bootstrap Angular');
+    console.log('[DEBUG] app-root element:', document.querySelector('app-root'));
+  </script>
 </body>
 </html>
