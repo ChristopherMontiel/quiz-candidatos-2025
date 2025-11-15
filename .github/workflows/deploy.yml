@@ -31,15 +31,15 @@ jobs:
       run: |
         echo "=== Contents of dist/ ==="
         ls -la dist/ 2>/dev/null || echo "dist directory not found!"
-        echo "=== Looking for index.html ==="
-        find . -name "index.html" -type f 2>/dev/null | head -20
+        echo "=== Contents of dist/browser/ ==="
+        ls -la dist/browser/ 2>/dev/null || echo "dist/browser not found!"
 
-    - name: Ensure index.html exists in dist
+    - name: Move browser contents to dist root
       run: |
-        if [ ! -f dist/index.html ]; then
-          echo "index.html not found in dist, copying from root"
-          mkdir -p dist
-          cp index.html dist/index.html
+        if [ -d "dist/browser" ]; then
+          echo "Moving dist/browser/* to dist/"
+          cp -r dist/browser/* dist/
+          rm -rf dist/browser
         fi
 
     - name: Copy 404.html and .nojekyll to dist
@@ -47,10 +47,13 @@ jobs:
         cp 404.html dist/404.html
         cp .nojekyll dist/.nojekyll
 
-    - name: Verify dist contents before upload
+    - name: Verify final dist contents
       run: |
         echo "=== Final dist contents ==="
         ls -la dist/
+        echo "=== Looking for key files ==="
+        [ -f dist/index.html ] && echo "✓ index.html found" || echo "✗ index.html NOT found"
+        [ -f dist/main-*.js ] && echo "✓ main JS bundle found" || echo "✗ main JS bundle NOT found"
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
