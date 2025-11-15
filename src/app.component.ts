@@ -8,6 +8,7 @@ import { ResultsComponent } from './components/results/results.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  standalone: true,
   imports: [CommonModule, QuizComponent, ResultsComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
